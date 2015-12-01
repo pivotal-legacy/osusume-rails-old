@@ -15,6 +15,7 @@ gem 'jbuilder', '~> 2.0'
 # gem 'unicorn'
 
 group :development, :test do
+  gem 'did_you_mean'
   gem 'byebug'
 end
 
