@@ -14,6 +14,10 @@ gem 'jbuilder', '~> 2.0'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+group :production do
+  gem 'rails_12factor'
+end
+
 group :development, :test do
   gem 'did_you_mean'
   gem 'byebug'
