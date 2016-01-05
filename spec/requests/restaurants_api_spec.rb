@@ -28,10 +28,8 @@ describe 'Restaurants API' do
 
     it 'returns created restaurant' do
       post '/restaurants', restaurant_json, format: :json
-      puts json_response
+
       expect(json_response['name']).to eq "Tonkatsu"
     end
-
-
   end
 end
