@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
   def index
-    render json: Restaurant.all
+    render json: Restaurant.order('created_at desc')
   end
 
   def create
@@ -11,7 +11,6 @@ class RestaurantsController < ApplicationController
     else
       render json: @restaurant.errors, status: :unprocessable_entity
     end
-
   end
 
   private
