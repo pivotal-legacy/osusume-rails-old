@@ -13,6 +13,11 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  def show
+    restaurant = Restaurant.find(params[:id])
+    render json: restaurant
+  end
+
   private
 
     def restaurant_params

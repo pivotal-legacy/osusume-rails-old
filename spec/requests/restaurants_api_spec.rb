@@ -33,4 +33,14 @@ describe 'Restaurants API' do
       expect(json_response['name']).to eq "Tonkatsu"
     end
   end
+
+  describe 'get restaurant by id' do
+    let!(:tsukemen) { Restaurant.create!(name: "Tukemen TETSU", created_at: 2.days.ago) }
+
+    it 'returns the restaurant' do
+      get "/restaurants/#{tsukemen.id}", format: :json
+
+      expect(json_response['name']).to eq "Tukemen TETSU"
+    end
+  end
 end
