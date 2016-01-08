@@ -19,7 +19,16 @@ describe 'Restaurants API' do
   end
 
   describe 'create restaurant' do
-    let(:restaurant_json) { { restaurant: { name: 'Tonkatsu' } } }
+    let(:restaurant_json) do
+        { restaurant: {
+            name: 'Tetsu',
+            address: 'Roppongi',
+            cuisine_type: 'Tonkatsu',
+            offers_english_menu: true,
+            walk_ins_ok: true,
+            accepts_credit_cards: true
+        } }
+    end
 
     it 'creates the restaurant' do
       expect {
@@ -30,7 +39,12 @@ describe 'Restaurants API' do
     it 'returns created restaurant' do
       post '/restaurants', restaurant_json, format: :json
 
-      expect(json_response['name']).to eq "Tonkatsu"
+      expect(json_response['name']).to eq "Tetsu"
+      expect(json_response['address']).to eq "Roppongi"
+      expect(json_response['cuisine_type']).to eq "Tonkatsu"
+      expect(json_response['offers_english_menu']).to eq true
+      expect(json_response['walk_ins_ok']).to eq true
+      expect(json_response['accepts_credit_cards']).to eq true
     end
   end
 
