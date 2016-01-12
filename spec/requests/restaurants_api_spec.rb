@@ -57,4 +57,26 @@ describe 'Restaurants API' do
       expect(json_response['name']).to eq "Tukemen TETSU"
     end
   end
+
+  describe 'update restaurant' do
+    let!(:tsukemen) { Restaurant.create!(name: "Tukemen TETSU", created_at: 2.days.ago) }
+
+    let(:restaurant_json) do
+      { restaurant: {
+          name: 'Renamed',
+          address: 'Roppongi',
+          cuisine_type: 'Tonkatsu',
+          offers_english_menu: true,
+          walk_ins_ok: true,
+          accepts_credit_cards: true
+      } }
+    end
+
+    it 'updates the restaurant' do
+      patch "/restaurants/#{tsukemen.id}", restaurant_json, format: :json
+
+      changedRestaurant = Restaurant.find(tsukemen.id)
+      expect(changedRestaurant.name).to eq "Renamed"
+    end
+  end
 end

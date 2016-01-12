@@ -4,18 +4,28 @@ class RestaurantsController < ApplicationController
   end
 
   def create
-    @restaurant = Restaurant.new(restaurant_params)
+    restaurant = Restaurant.new(restaurant_params)
 
-    if @restaurant.save
-      render json: @restaurant
+    if restaurant.save
+      render json: restaurant
     else
-      render json: @restaurant.errors, status: :unprocessable_entity
+      render json: restaurant.errors, status: :unprocessable_entity
     end
   end
 
   def show
     restaurant = Restaurant.find(params[:id])
     render json: restaurant
+  end
+
+  def update
+    restaurant = Restaurant.find(params[:id])
+    if restaurant.update(restaurant_params)
+      render json: restaurant
+    else
+      render json: restaurant.errors, status: :unprocessable_entity
+    end
+
   end
 
   private
