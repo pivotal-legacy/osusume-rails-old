@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160121083741) do
+ActiveRecord::Schema.define(version: 20160129011909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20160121083741) do
     t.boolean  "offers_english_menu"
     t.boolean  "walk_ins_ok"
     t.boolean  "accepts_credit_cards"
+    t.text     "notes"
   end
 
   create_table "users", force: :cascade do |t|

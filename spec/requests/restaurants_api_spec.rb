@@ -26,7 +26,8 @@ describe 'Restaurants API' do
             cuisine_type: 'Tonkatsu',
             offers_english_menu: true,
             walk_ins_ok: true,
-            accepts_credit_cards: true
+            accepts_credit_cards: true,
+            notes: 'This restaurant has tasty バーニャカウダ'
         } }
     end
 
@@ -45,6 +46,7 @@ describe 'Restaurants API' do
       expect(json_response['offers_english_menu']).to eq true
       expect(json_response['walk_ins_ok']).to eq true
       expect(json_response['accepts_credit_cards']).to eq true
+      expect(json_response['notes']).to eq 'This restaurant has tasty バーニャカウダ'
     end
   end
 
