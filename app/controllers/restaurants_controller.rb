@@ -4,10 +4,10 @@ class RestaurantsController < ApplicationController
   end
 
   def create
-    restaurant = Restaurant.new(restaurant_params)
+    restaurant = Restaurant.new(restaurant_params.merge(user: current_user))
 
     if restaurant.save
-      render json: restaurant
+      render json: restaurant_with_user(restaurant)
     else
       render json: restaurant.errors, status: :unprocessable_entity
     end
@@ -15,7 +15,7 @@ class RestaurantsController < ApplicationController
 
   def show
     restaurant = Restaurant.find(params[:id])
-    render json: restaurant
+    render json: restaurant_with_user(restaurant)
   end
 
   def update
@@ -30,7 +30,11 @@ class RestaurantsController < ApplicationController
 
   private
 
-    def restaurant_params
-      params.require(:restaurant).permit(:name, :address, :cuisine_type, :offers_english_menu, :walk_ins_ok, :accepts_credit_cards, :notes)
-    end
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :address, :cuisine_type, :offers_english_menu, :walk_ins_ok, :accepts_credit_cards, :notes)
+  end
+
+  def restaurant_with_user(restaurant)
+    restaurant.to_json(include: { user: { only: :name } })
+  end
 end

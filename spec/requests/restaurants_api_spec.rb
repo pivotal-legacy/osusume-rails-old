@@ -30,15 +30,17 @@ describe 'Restaurants API' do
             notes: 'This restaurant has tasty バーニャカウダ'
         } }
     end
+    let(:user) { User.create!(name: 'Hachiko', password: 'password') }
+    let(:token) { TokenEncoder.new(user).token }
 
     it 'creates the restaurant' do
       expect {
-        post '/restaurants', restaurant_json, format: :json
+        post '/restaurants', restaurant_json, { format: :json, authorization: "Bearer #{token}" }
       }.to change { Restaurant.count }.by(1)
     end
 
     it 'returns created restaurant' do
-      post '/restaurants', restaurant_json, format: :json
+      post '/restaurants', restaurant_json, { format: :json, authorization: "Bearer #{token}" }
 
       expect(json_response['name']).to eq "Tetsu"
       expect(json_response['address']).to eq "Roppongi"
@@ -47,16 +49,20 @@ describe 'Restaurants API' do
       expect(json_response['walk_ins_ok']).to eq true
       expect(json_response['accepts_credit_cards']).to eq true
       expect(json_response['notes']).to eq 'This restaurant has tasty バーニャカウダ'
+      expect(json_response['user']['name']).to eq 'Hachiko'
     end
   end
 
   describe 'get restaurant by id' do
-    let!(:tsukemen) { Restaurant.create!(name: "Tukemen TETSU", created_at: 2.days.ago) }
+    let!(:tsukemen) { Restaurant.create!(name: "Tukemen TETSU", created_at: 2.days.ago, user: user) }
+    let(:user) { User.create!(name: 'Hachiko', password: 'password') }
+    let(:token) { TokenEncoder.new(user).token }
 
     it 'returns the restaurant' do
-      get "/restaurants/#{tsukemen.id}", format: :json
+      get "/restaurants/#{tsukemen.id}", { format: :json, authorization: "Bearer #{token}" }
 
       expect(json_response['name']).to eq "Tukemen TETSU"
+      expect(json_response['user']['name']).to eq "Hachiko"
     end
   end
 
