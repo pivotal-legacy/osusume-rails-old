@@ -6,8 +6,9 @@ describe 'Restaurants API' do
   end
 
   describe 'get restaurants' do
-    let!(:tsukemen) { Restaurant.create!(name: "Tukemen TETSU", created_at: 2.days.ago) }
-    let!(:curry)    { Restaurant.create!(name: "Coco Curry", created_at: Time.now) }
+    let(:user) { User.create!(name: 'Hachiko', password: 'password') }
+    let!(:tsukemen) { Restaurant.create!(name: "Tukemen TETSU", created_at: 2.days.ago, user: user) }
+    let!(:curry)    { Restaurant.create!(name: "Coco Curry", created_at: Time.now, user: user) }
 
     it 'returns all restaurants' do
       get '/restaurants', format: :json
@@ -15,6 +16,7 @@ describe 'Restaurants API' do
       expect(json_response.count).to eq 2
       expect(json_response[0]['name']).to eq "Coco Curry"
       expect(json_response[1]['name']).to eq "Tukemen TETSU"
+      expect(json_response[0]['user']['name']).to eq "Hachiko"
     end
   end
 
