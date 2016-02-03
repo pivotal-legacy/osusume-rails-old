@@ -17,6 +17,7 @@ describe 'Restaurants API' do
       expect(json_response[0]['name']).to eq "Coco Curry"
       expect(json_response[1]['name']).to eq "Tukemen TETSU"
       expect(json_response[0]['user']['name']).to eq "Hachiko"
+      expect(json_response[0]['created_at']).to eq curry.created_at.to_i
     end
   end
 
