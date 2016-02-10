@@ -30,7 +30,8 @@ describe 'Restaurants API' do
             offers_english_menu: true,
             walk_ins_ok: true,
             accepts_credit_cards: true,
-            notes: 'This restaurant has tasty バーニャカウダ'
+            notes: 'This restaurant has tasty バーニャカウダ',
+            photo_url: 'http://animaliaz-life.com/data_images/mountain-lion/mountain-lion9.jpg'
         } }
     end
     let(:user) { User.create!(name: 'Hachiko', password: 'password') }
@@ -53,6 +54,7 @@ describe 'Restaurants API' do
       expect(json_response['accepts_credit_cards']).to eq true
       expect(json_response['notes']).to eq 'This restaurant has tasty バーニャカウダ'
       expect(json_response['user']['name']).to eq 'Hachiko'
+      expect(json_response['photo_url']).to eq 'http://animaliaz-life.com/data_images/mountain-lion/mountain-lion9.jpg'
     end
   end
 
