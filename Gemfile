@@ -2,19 +2,10 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', '4.2.5'
-gem 'pg', '~> 0.15'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
-
-# Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
+gem 'pg', '~> 0.15'
 gem 'jwt'
+gem 'rails', '4.2.5'
 
 group :production do
   gem 'rails_12factor'
