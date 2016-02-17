@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 describe 'Restaurants API' do
-  def json_response
-    JSON.parse(response.body)
-  end
-
   describe 'get restaurants' do
+    before { Restaurant.delete_all }
+
     let(:user) { User.create!(name: 'Hachiko', password: 'password') }
     let!(:tsukemen) { Restaurant.create!(name: "Tukemen TETSU", created_at: 2.days.ago, user: user) }
     let!(:curry)    { Restaurant.create!(name: "Coco Curry", created_at: Time.now, user: user) }

@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 describe 'Login API' do
-  def json_response
-    JSON.parse(response.body)
-  end
-
   describe 'login' do
     let(:user) { User.create!(email: 'osusume@pivotal.io', password: 'secret') }
 
