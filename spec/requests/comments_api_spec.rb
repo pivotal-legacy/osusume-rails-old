@@ -19,5 +19,10 @@ describe 'Comments API' do
       }.to change { Comment.count }.by(1)
     end
 
+    it 'responds with 201 status on creation' do
+      post '/comments', comment_json, { format: :json, authorization: "Bearer #{token}" }
+      expect(response.status).to eq 201
+    end
+
   end
 end
