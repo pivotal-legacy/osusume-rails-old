@@ -60,12 +60,14 @@ describe 'Restaurants API' do
     let!(:tsukemen) { Restaurant.create!(name: "Tukemen TETSU", created_at: 2.days.ago, user: user) }
     let(:user) { User.create!(name: 'Hachiko', password: 'password') }
     let(:token) { TokenEncoder.new(user).token }
+    let!(:comment) { Comment.create!(content: "This is a comment", restaurant_id: tsukemen.id, user_id: user.id) }
 
     it 'returns the restaurant' do
       get "/restaurants/#{tsukemen.id}", { format: :json, authorization: "Bearer #{token}" }
 
-      expect(json_response['name']).to eq "Tukemen TETSU"
-      expect(json_response['user']['name']).to eq "Hachiko"
+      expect(json_response['name']).to eq 'Tukemen TETSU'
+      expect(json_response['user']['name']).to eq 'Hachiko'
+      expect(json_response['comments'][0]['content']).to eq 'This is a comment'
     end
   end
 
