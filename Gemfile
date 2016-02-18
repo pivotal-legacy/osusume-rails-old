@@ -14,7 +14,6 @@ group :production do
 end
 
 group :development, :test do
-  gem 'did_you_mean'
   gem 'byebug'
 end
 
