@@ -7,6 +7,7 @@ gem 'rails', '4.2.5'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'pg', '~> 0.15'
+gem 'pry-rails'
 gem 'jwt'
 
 group :production do
