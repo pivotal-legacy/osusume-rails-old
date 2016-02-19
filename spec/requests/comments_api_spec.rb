@@ -5,8 +5,7 @@ describe 'Comments API' do
 
     let(:comment_json) do
       { comment: {
-          content: 'hello this is a comment!',
-          restaurant_id: 1
+          content: 'hello this is a comment!'
         }
       }
     end
@@ -15,12 +14,15 @@ describe 'Comments API' do
 
     it 'creates comment' do
       expect {
-        post '/comments', comment_json, { format: :json, authorization: "Bearer #{token}" }
+        post '/restaurants/1/comments', comment_json, { format: :json, authorization: "Bearer #{token}" }
       }.to change { Comment.count }.by(1)
+
+      expect(Comment.last.restaurant_id).to eq 1
+      expect(Comment.last.user_id).to eq user.id
     end
 
     it 'responds with 201 status on creation' do
-      post '/comments', comment_json, { format: :json, authorization: "Bearer #{token}" }
+      post '/restaurants/1/comments', comment_json, { format: :json, authorization: "Bearer #{token}" }
       expect(response.status).to eq 201
     end
 

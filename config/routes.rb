@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-	resource :comments, only: :create
-	resource :login, only: :create, controller: :login
-	resources :restaurants, only: [:index, :create, :show, :update]
+  resources :login, only: :create
+  resources :restaurants, only: [:index, :create, :show, :update] do
+    resources :comments, only: :create
+  end
 end

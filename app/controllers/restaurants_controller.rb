@@ -15,8 +15,10 @@ class RestaurantsController < ApplicationController
 
   def show
     restaurant = Restaurant.find(params[:id])
-    relations_to_include = [{ user: { only: :name } }, :comments]
-    render json: restaurant.to_json(include: relations_to_include)
+    user = { user: { only: :name } }
+    comments = { comments: { include: user }}
+
+    render json: restaurant.to_json(include: [user, comments])
   end
 
   def update

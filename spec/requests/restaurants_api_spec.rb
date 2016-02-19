@@ -68,6 +68,7 @@ describe 'Restaurants API' do
       expect(json_response['name']).to eq 'Tukemen TETSU'
       expect(json_response['user']['name']).to eq 'Hachiko'
       expect(json_response['comments'][0]['content']).to eq 'This is a comment'
+      expect(json_response['comments'][0]['user']['name']).to eq 'Hachiko'
     end
   end
 
