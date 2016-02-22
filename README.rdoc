@@ -1,3 +1,0 @@
-= Pivotal Labs Tokyo Osusume
-
-This is the API for Pivotal Labs Tokyo restaurant recommendations.
