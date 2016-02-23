@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Restaurants API' do
-  describe 'get restaurants' do
+  describe 'GET /restaurants' do
     before { Restaurant.delete_all }
 
     let(:user) { User.create!(name: 'Hachiko', password: 'password') }
@@ -19,7 +19,7 @@ describe 'Restaurants API' do
     end
   end
 
-  describe 'create restaurant' do
+  describe 'POST /restaurants' do
     let(:restaurant_json) do
       {restaurant: {
           name: 'Tetsu',
@@ -56,7 +56,7 @@ describe 'Restaurants API' do
     end
   end
 
-  describe 'get restaurant by id' do
+  describe 'GET /restaurants/:id' do
     let!(:tsukemen) { Restaurant.create!(name: "Tukemen TETSU", created_at: 2.days.ago, user: user) }
     let(:user) { User.create!(name: 'Hachiko', password: 'password') }
     let(:token) { TokenEncoder.new(user).token }
@@ -72,7 +72,7 @@ describe 'Restaurants API' do
     end
   end
 
-  describe 'update restaurant' do
+  describe 'PATCH /restaurants/:id' do
     let!(:tsukemen) { Restaurant.create!(name: "Tukemen TETSU", created_at: 2.days.ago) }
 
     let(:restaurant_json) do
