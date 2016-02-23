@@ -3,11 +3,19 @@ class RestaurantsController < ApplicationController
     render json: Restaurant.order('created_at desc').to_json(include: {user: {only: :name}})
   end
 
+  KEY_MAP = {"photo_urls" => "photo_urls_attributes"}
+
   def create
-    restaurant = Restaurant.new(restaurant_params.merge(user: current_user))
+    new_restaurant_attrs = restaurant_params
+                               .merge(user: current_user)
+                               .transform_keys { |key| KEY_MAP[key] || key }
+
+    restaurant = Restaurant.new(
+        new_restaurant_attrs
+    )
 
     if restaurant.save
-      render json: restaurant.to_json(include: {user: {only: :name}})
+      render json: restaurant.to_json
     else
       render json: restaurant.errors, status: :unprocessable_entity
     end
@@ -37,14 +45,14 @@ class RestaurantsController < ApplicationController
   def restaurant_params
     params.require(:restaurant)
         .permit(
-            :name,
-            :address,
-            :cuisine_type,
-            :offers_english_menu,
-            :walk_ins_ok,
-            :accepts_credit_cards,
-            :notes,
-            :photo_url
-        )
+        :name,
+        :address,
+        :cuisine_type,
+        :offers_english_menu,
+        :walk_ins_ok,
+        :accepts_credit_cards,
+        :notes,
+        photo_urls: [:url]
+    )
   end
 end

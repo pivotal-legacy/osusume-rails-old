@@ -29,7 +29,7 @@ describe 'Restaurants API' do
           walk_ins_ok: true,
           accepts_credit_cards: true,
           notes: 'This restaurant has tasty バーニャカウダ',
-          photo_url: 'http://animaliaz-life.com/data_images/mountain-lion/mountain-lion9.jpg'
+          photo_urls: [{url: 'http://tsukemen.com/noodle.jpg'}, {url: 'http://afuri.com/ramen.jpg'}]
       }}
     end
     let(:user) { User.create!(name: 'Hachiko', password: 'password') }
@@ -39,6 +39,10 @@ describe 'Restaurants API' do
       expect {
         post '/restaurants', restaurant_json, {format: :json, authorization: "Bearer #{token}"}
       }.to change { Restaurant.count }.by(1)
+
+      created_restaurant = Restaurant.last
+      expect(created_restaurant.photo_urls.count).to eq 2
+      expect(created_restaurant.user).to eq user
     end
 
     it 'returns created restaurant' do
@@ -51,8 +55,6 @@ describe 'Restaurants API' do
       expect(json_response['walk_ins_ok']).to eq true
       expect(json_response['accepts_credit_cards']).to eq true
       expect(json_response['notes']).to eq 'This restaurant has tasty バーニャカウダ'
-      expect(json_response['user']['name']).to eq 'Hachiko'
-      expect(json_response['photo_url']).to eq 'http://animaliaz-life.com/data_images/mountain-lion/mountain-lion9.jpg'
     end
   end
 
