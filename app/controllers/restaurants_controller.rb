@@ -10,9 +10,7 @@ class RestaurantsController < ApplicationController
                                .merge(user: current_user)
                                .transform_keys { |key| KEY_MAP[key] || key }
 
-    restaurant = Restaurant.new(
-        new_restaurant_attrs
-    )
+    restaurant = Restaurant.new(new_restaurant_attrs)
 
     if restaurant.save
       render json: restaurant.to_json
@@ -25,8 +23,9 @@ class RestaurantsController < ApplicationController
     restaurant = Restaurant.find(params[:id])
     user = {user: {only: :name}}
     comments = {comments: {include: user}}
+    photo_urls = {photo_urls: {only: :url}}
 
-    render json: restaurant.to_json(include: [user, comments])
+    render json: restaurant.to_json(include: [user, comments, photo_urls])
   end
 
   def update

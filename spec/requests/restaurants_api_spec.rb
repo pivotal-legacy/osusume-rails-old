@@ -59,10 +59,11 @@ describe 'Restaurants API' do
   end
 
   describe 'GET /restaurants/:id' do
-    let!(:tsukemen) { Restaurant.create!(name: "Tukemen TETSU", created_at: 2.days.ago, user: user) }
+    let!(:tsukemen) { Restaurant.create!(name: 'Tukemen TETSU', created_at: 2.days.ago, user: user) }
     let(:user) { User.create!(name: 'Hachiko', password: 'password') }
     let(:token) { TokenEncoder.new(user).token }
-    let!(:comment) { Comment.create!(content: "This is a comment", restaurant_id: tsukemen.id, user_id: user.id) }
+    let!(:comment) { Comment.create!(content: 'This is a comment', restaurant_id: tsukemen.id, user_id: user.id) }
+    let!(:photo_url) { PhotoUrl.create!(url: 'My cool url', restaurant: tsukemen)}
 
     it 'returns the restaurant' do
       get "/restaurants/#{tsukemen.id}", {format: :json, authorization: "Bearer #{token}"}
@@ -71,11 +72,12 @@ describe 'Restaurants API' do
       expect(json_response['user']['name']).to eq 'Hachiko'
       expect(json_response['comments'][0]['content']).to eq 'This is a comment'
       expect(json_response['comments'][0]['user']['name']).to eq 'Hachiko'
+      expect(json_response['photo_urls'][0]['url']).to eq 'My cool url'
     end
   end
 
   describe 'PATCH /restaurants/:id' do
-    let!(:tsukemen) { Restaurant.create!(name: "Tukemen TETSU", created_at: 2.days.ago) }
+    let!(:tsukemen) { Restaurant.create!(name: 'Tukemen TETSU', created_at: 2.days.ago) }
 
     let(:restaurant_json) do
       {restaurant: {
