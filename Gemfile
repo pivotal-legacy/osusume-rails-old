@@ -9,6 +9,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'pg', '~> 0.15'
 gem 'pry-rails'
 gem 'jwt'
+gem 'thin'
 
 group :production do
   gem 'rails_12factor'
