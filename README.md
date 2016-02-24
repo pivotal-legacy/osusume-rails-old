@@ -6,4 +6,4 @@ This is the API for Pivotal Labs Tokyo restaurant recommendations.
 
     $ cf login
 
-    $ cf push
+    $ ./bin/deploy_staging.sh
