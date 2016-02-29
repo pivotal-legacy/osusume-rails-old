@@ -4,7 +4,8 @@ class CommentsController < ApplicationController
 		comment = Comment.new(comment_params.merge(user: current_user))
 
 		if comment.save
-			render json: comment.to_json, status: :created
+			user = {user: {only: :name}}
+			render json: comment.to_json(include: [user]), status: :created
 		else
 			render json: comment.errors, status: :unprocessable_entity
 		end

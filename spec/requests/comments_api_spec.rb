@@ -17,9 +17,10 @@ describe 'Comments API' do
         post '/restaurants/1/comments', comment_json, { format: :json, authorization: "Bearer #{token}" }
       }.to change { Comment.count }.by(1)
 
-      created_comment = Comment.last
-      expect(created_comment.restaurant_id).to eq 1
-      expect(created_comment.user_id).to eq user.id
+      expect(json_response["restaurant_id"]).to eq 1
+      expect(json_response["user_id"]).to eq user.id
+      expect(json_response["content"]).to eq 'hello this is a comment!'
+      expect(json_response["user"]["name"]).to eq 'Hachiko'
     end
 
     it 'responds with 201 status on creation' do
