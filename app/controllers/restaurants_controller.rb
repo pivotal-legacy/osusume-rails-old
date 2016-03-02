@@ -1,6 +1,9 @@
 class RestaurantsController < ApplicationController
   def index
-    render json: Restaurant.order('created_at desc').to_json(include: {user: {only: :name}})
+    restaurants = Restaurant.order('created_at desc').includes(:user, :photo_urls)
+    serializer = RestaurantListSerializer.new(restaurants)
+
+    render json: serializer
   end
 
   KEY_MAP = {"photo_urls" => "photo_urls_attributes"}
@@ -44,14 +47,14 @@ class RestaurantsController < ApplicationController
   def restaurant_params
     params.require(:restaurant)
         .permit(
-        :name,
-        :address,
-        :cuisine_type,
-        :offers_english_menu,
-        :walk_ins_ok,
-        :accepts_credit_cards,
-        :notes,
-        photo_urls: [:url]
-    )
+            :name,
+            :address,
+            :cuisine_type,
+            :offers_english_menu,
+            :walk_ins_ok,
+            :accepts_credit_cards,
+            :notes,
+            photo_urls: [:url]
+        )
   end
 end
