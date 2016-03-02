@@ -15,7 +15,6 @@ class RestaurantListSerializer
           "notes" => r.notes,
           "offers_english_menu" => r.offers_english_menu,
           "user" => UserSerializer.new(r.user).as_json,
-          "user_id" => r.user_id,
           "walk_ins_ok" => r.walk_ins_ok,
           "photo_urls" => PhotoUrlListSerializer.new(r.photo_urls).as_json,
       }

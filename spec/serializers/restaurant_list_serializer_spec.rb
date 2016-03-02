@@ -14,7 +14,6 @@ describe RestaurantListSerializer do
             notes: "Good food",
             offers_english_menu: true,
             user: User.new(id: 999, name: "Person"),
-            user_id: 999,
             walk_ins_ok: true,
             photo_urls: [PhotoUrl.new(id: 555, url: "http://example.com/image.png")]
         )
@@ -34,7 +33,6 @@ describe RestaurantListSerializer do
     expect(first_restaurant["cuisine_type"]).to eq "Creole"
     expect(first_restaurant["notes"]).to eq "Good food"
     expect(first_restaurant["offers_english_menu"]).to eq true
-    expect(first_restaurant["user_id"]).to eq 999
     expect(first_restaurant["walk_ins_ok"]).to eq true
 
     expect(first_restaurant["created_at"]).to eq current_time.to_i

@@ -20,7 +20,6 @@ describe 'Restaurants API' do
                                                        "notes",
                                                        "offers_english_menu",
                                                        "user",
-                                                       "user_id",
                                                        "walk_ins_ok",
                                                        "photo_urls"])
       expect(json_response[0]['user'].keys).to match_array(["name"])
