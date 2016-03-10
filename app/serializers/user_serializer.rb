@@ -3,7 +3,7 @@ class UserSerializer
     @user = user
   end
 
-  def as_json
+  def as_json(*)
     {
         "name" => @user.name
     }

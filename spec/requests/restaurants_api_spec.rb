@@ -77,7 +77,7 @@ describe 'Restaurants API' do
     let!(:photo_url) { PhotoUrl.create!(url: 'My cool url', restaurant: tsukemen) }
 
     it 'returns the restaurant' do
-      get "/restaurants/#{tsukemen.id}", {format: :json, authorization: "Bearer #{token}"}
+      get "/restaurants/#{tsukemen.id}", {format: :json}
 
       expect(json_response['name']).to eq 'Tsukemen TETSU'
       expect(json_response['user']['name']).to eq 'Hachiko'
