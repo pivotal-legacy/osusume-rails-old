@@ -147,8 +147,5 @@ DEPENDENCIES
   rspec-rails
   thin
 
-RUBY VERSION
-   ruby 2.3.0p0
-
 BUNDLED WITH
    1.12.0.pre.2
