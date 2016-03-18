@@ -3,6 +3,7 @@ class Restaurant < ActiveRecord::Base
   has_many :comments
   has_many :photo_urls
   has_many :likes
+  belongs_to :cuisine
   accepts_nested_attributes_for :photo_urls
 
   def created_at

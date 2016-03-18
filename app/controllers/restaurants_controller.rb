@@ -48,6 +48,7 @@ class RestaurantsController < ApplicationController
             :name,
             :address,
             :cuisine_type,
+            :cuisine_id,
             :offers_english_menu,
             :walk_ins_ok,
             :accepts_credit_cards,

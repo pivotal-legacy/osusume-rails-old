@@ -13,6 +13,7 @@ class RestaurantDetailSerializer
         "updated_at" => @restaurant.updated_at,
         "address" => @restaurant.address,
         "cuisine_type" => @restaurant.cuisine_type,
+        "cuisine" => CuisineSerializer.new(@restaurant.cuisine).as_json,
         "offers_english_menu" => @restaurant.offers_english_menu,
         "walk_ins_ok" => @restaurant.walk_ins_ok,
         "accepts_credit_cards" => @restaurant.accepts_credit_cards,

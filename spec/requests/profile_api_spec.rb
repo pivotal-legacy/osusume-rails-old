@@ -27,6 +27,7 @@ describe 'Profile API' do
                                                        "accepts_credit_cards",
                                                        "address",
                                                        "created_at",
+                                                       "cuisine",
                                                        "cuisine_type",
                                                        "notes",
                                                        "offers_english_menu",

@@ -12,6 +12,7 @@ class RestaurantListSerializer
           "address" => r.address,
           "created_at" => r.created_at,
           "cuisine_type" => r.cuisine_type,
+          "cuisine" => CuisineSerializer.new(r.cuisine).as_json,
           "notes" => r.notes,
           "offers_english_menu" => r.offers_english_menu,
           "user" => UserSerializer.new(r.user).as_json,
