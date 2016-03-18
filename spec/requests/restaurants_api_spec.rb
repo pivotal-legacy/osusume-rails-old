@@ -79,10 +79,34 @@ describe 'Restaurants API' do
     it 'returns the restaurant' do
       get "/restaurants/#{tsukemen.id}", {format: :json}
 
+      expect(json_response.keys).to match_array(["id",
+                                                 "name",
+                                                 "created_at",
+                                                 "updated_at",
+                                                 "address",
+                                                 "cuisine_type",
+                                                 "offers_english_menu",
+                                                 "walk_ins_ok",
+                                                 "accepts_credit_cards",
+                                                 "notes",
+                                                 "user_id",
+                                                 "user",
+                                                 "comments",
+                                                 "photo_urls"])
       expect(json_response['name']).to eq 'Tsukemen TETSU'
       expect(json_response['user']['name']).to eq 'Hachiko'
+      expect(json_response['comments'].count).to eq 1
+      expect(json_response['comments'][0].keys).to match_array(["id",
+                                                                "content",
+                                                                "user",
+                                                                "restaurant_id",
+                                                                "created_at"])
+      expect(json_response['comments'][0]['id']).to eq comment.id
+      expect(json_response['comments'][0]['restaurant_id']).to eq tsukemen.id
+      expect(json_response['comments'][0]['created_at']).to eq comment.created_at.to_i
       expect(json_response['comments'][0]['content']).to eq 'This is a comment'
       expect(json_response['comments'][0]['user']['name']).to eq 'Hachiko'
+      expect(json_response['photo_urls'].count).to eq 1
       expect(json_response['photo_urls'][0]['url']).to eq 'My cool url'
     end
   end
