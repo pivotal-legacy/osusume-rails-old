@@ -1,12 +1,14 @@
 class RestaurantDetailSerializer
-  def initialize(restaurant)
+  def initialize(restaurant, current_user_id)
     @restaurant = restaurant
+    @current_user_id = current_user_id
   end
 
   def as_json(*)
     {
         "id" => @restaurant.id,
         "name" => @restaurant.name,
+        "liked" => liked_by_current_user?,
         "created_at" => @restaurant.created_at,
         "updated_at" => @restaurant.updated_at,
         "address" => @restaurant.address,
@@ -20,5 +22,13 @@ class RestaurantDetailSerializer
         "comments" => @restaurant.comments.map { |c| CommentSerializer.new(c).as_json },
         "photo_urls" => @restaurant.photo_urls
     }
+  end
+
+  def liked_by_current_user?
+    likes_of_current_user = @restaurant.likes.to_a.select do |like|
+      like.user_id == @current_user_id
+    end
+
+    likes_of_current_user.count == 1
   end
 end

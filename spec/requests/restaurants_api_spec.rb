@@ -77,10 +77,13 @@ describe 'Restaurants API' do
     let!(:photo_url) { PhotoUrl.create!(url: 'My cool url', restaurant: tsukemen) }
 
     it 'returns the restaurant' do
-      get "/restaurants/#{tsukemen.id}", {format: :json}
+      Like.create!(user_id: user.id, restaurant_id: tsukemen.id)
+
+      get "/restaurants/#{tsukemen.id}", {}, {authorization: "Bearer #{token}"}
 
       expect(json_response.keys).to match_array(["id",
                                                  "name",
+                                                 "liked",
                                                  "created_at",
                                                  "updated_at",
                                                  "address",
@@ -95,6 +98,7 @@ describe 'Restaurants API' do
                                                  "photo_urls"])
       expect(json_response['name']).to eq 'Tsukemen TETSU'
       expect(json_response['user']['name']).to eq 'Hachiko'
+      expect(json_response['liked']).to eq true
       expect(json_response['comments'].count).to eq 1
       expect(json_response['comments'][0].keys).to match_array(["id",
                                                                 "content",

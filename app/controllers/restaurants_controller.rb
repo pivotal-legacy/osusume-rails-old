@@ -23,8 +23,8 @@ class RestaurantsController < ApplicationController
   end
 
   def show
-    restaurant = Restaurant.includes(:user, :photo_urls, :comments).find(params[:id])
-    serializer = RestaurantDetailSerializer.new(restaurant)
+    restaurant = Restaurant.includes(:user, :photo_urls, :comments, :likes).find(params[:id])
+    serializer = RestaurantDetailSerializer.new(restaurant, current_user.id)
 
     render json: serializer
   end
