@@ -7,4 +7,5 @@ class Restaurant < ActiveRecord::Base
   def created_at
     super.to_i
   end
+
 end
