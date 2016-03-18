@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe RestaurantListSerializer do
-  it "does something" do
+  it "serializes a restaurant" do
     current_time = Time.current
     restaurants = [
         Restaurant.new(
