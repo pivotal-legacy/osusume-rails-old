@@ -46,9 +46,9 @@ describe 'Profile API' do
     it "returns liked restraurants by the current user" do
       someone_else = User.create!(name: 'Taro', password: 'password')
       restaurant_afuri = Restaurant.create!(name: "Afuri", created_at: 1.days.ago, user: someone_else)
-      restaurant_tetsu = Restaurant.create!(name: "Tsukemen TETSU", created_at: 2.days.ago, user: someone_else)
+      Restaurant.create!(name: "Tsukemen TETSU", created_at: 2.days.ago, user: someone_else)
       PhotoUrl.create!(url: "my-awesome-url", restaurant: restaurant_afuri)
-      like = Like.create!(restaurant_id: restaurant_afuri.id, user_id: user.id)
+      Like.create!(restaurant_id: restaurant_afuri.id, user_id: user.id)
 
       get "/profile/likes", {}, {format: :json, authorization: "Bearer #{token}"}
 

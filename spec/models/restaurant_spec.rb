@@ -9,4 +9,16 @@ describe Restaurant do
 
     expect(restaurant.cuisine).to eq(cuisine)
   end
+
+  it 'returns restaurants liked by a user' do
+    user = User.create(id: 1, name: "Uncle Bob")
+    restaurant = Restaurant.create(name: "Robertini!")
+    like = Like.create(user_id: 1, restaurant_id: restaurant.id)
+
+    liked_restaurants = Restaurant.likes_for_user(user.id)
+
+    expect(liked_restaurants.count).to be 1
+    expect(liked_restaurants.first.name).to eq("Robertini!")
+  end
+
 end

@@ -8,8 +8,7 @@ class ProfileController < ApplicationController
   end
 
   def likes
-    restaurants = Restaurant.joins(:likes)
-                      .where("likes.user_id = ?", current_user.id)
+    restaurants = Restaurant.likes_for_user(current_user.id)
     serializer = RestaurantListSerializer.new(restaurants)
     render json: serializer
   end
