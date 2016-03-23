@@ -14,7 +14,7 @@ describe 'Profile API' do
 
   describe 'GET /profile/posts' do
     it "returns restaurants posted by the current user" do
-      someone_else  = User.create!(name: 'Taro', password: 'password')
+      someone_else = User.create!(name: 'Taro', password: 'password')
       Restaurant.create!(name: "Afuri", created_at: 1.days.ago, user: someone_else)
       restaurant = Restaurant.create!(name: "Tsukemen TETSU", created_at: 2.days.ago, user: user)
       PhotoUrl.create!(url: "my-awesome-url", restaurant: restaurant)
@@ -39,6 +39,37 @@ describe 'Profile API' do
       expect(json_response[0]['user']['name']).to eq "Hachiko"
       expect(json_response[0]['photo_urls'][0]["url"]).to eq "my-awesome-url"
       expect(json_response[0]['created_at']).to eq restaurant.created_at.to_i
+    end
+  end
+
+  describe 'GET /profile/likes' do
+    it "returns liked restraurants by the current user" do
+      someone_else = User.create!(name: 'Taro', password: 'password')
+      restaurant_afuri = Restaurant.create!(name: "Afuri", created_at: 1.days.ago, user: someone_else)
+      restaurant_tetsu = Restaurant.create!(name: "Tsukemen TETSU", created_at: 2.days.ago, user: someone_else)
+      PhotoUrl.create!(url: "my-awesome-url", restaurant: restaurant_afuri)
+      like = Like.create!(restaurant_id: restaurant_afuri.id, user_id: user.id)
+
+      get "/profile/likes", {}, {format: :json, authorization: "Bearer #{token}"}
+
+      expect(json_response.count).to eq(1)
+      expect(json_response.first.keys).to match_array(["id",
+                                                       "name",
+                                                       "accepts_credit_cards",
+                                                       "address",
+                                                       "created_at",
+                                                       "cuisine",
+                                                       "cuisine_type",
+                                                       "notes",
+                                                       "offers_english_menu",
+                                                       "user",
+                                                       "walk_ins_ok",
+                                                       "photo_urls"])
+      expect(json_response[0]['user'].keys).to match_array(["name"])
+      expect(json_response[0]['name']).to eq "Afuri"
+      expect(json_response[0]['user']['name']).to eq "Taro"
+      expect(json_response[0]['photo_urls'][0]["url"]).to eq "my-awesome-url"
+      expect(json_response[0]['created_at']).to eq restaurant_afuri.created_at.to_i
     end
   end
 end
