@@ -8,7 +8,7 @@ class Restaurant < ActiveRecord::Base
 
   def self.likes_for_user(user_id)
     joins(:likes)
-        .where('likes.user_id = ?', user_id)
+        .where(:likes => {:user_id => user_id})
   end
 
   def created_at
