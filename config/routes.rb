@@ -10,5 +10,5 @@ Rails.application.routes.draw do
     resources :likes, only: :create
   end
 
-  resources :cuisines, only: :index
+  resources :cuisines, only: [:index, :create]
 end

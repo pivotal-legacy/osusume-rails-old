@@ -10,4 +10,14 @@ describe 'Cuisines API' do
       expect(json_response[0]['name']).to eq "Japanese"
     end
   end
+
+  describe 'POST /cuisines' do
+    it 'creates a cuisine' do
+      post '/cuisines', {name: "Mexican"}.as_json
+
+      expect(response.status).to eq 201
+
+      expect(json_response["name"]).to eq "Mexican"
+    end
+  end
 end

@@ -4,4 +4,9 @@ class CuisinesController < ApplicationController
     serializer = CuisineListSerializer.new(cuisines)
     render json: serializer
   end
+
+  def create
+    render json: Cuisine.create(name: params["name"]),
+           status: :created
+  end
 end
